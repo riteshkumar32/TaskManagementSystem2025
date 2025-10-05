@@ -1,0 +1,20 @@
+<%- include('partials/header') %>
+
+<h2>Edit Task</h2>
+<form action="/tasks/<%= task._id %>?_method=PUT" method="POST" class="form">
+  <label>Title</label>
+  <input type="text" name="title" value="<%= task.title %>" required />
+  <label>Description</label>
+  <textarea name="description"><%= task.description %></textarea>
+  <label>Due Date</label>
+  <input type="date" name="dueDate" value="<%= task.dueDate ? new Date(task.dueDate).toISOString().substr(0,10): '' %>" />
+  <label>Priority</label>
+  <select name="priority">
+    <option value="low" <%= task.priority === 'low' ? 'selected' : '' %>>Low</option>
+    <option value="medium" <%= task.priority === 'medium' ? 'selected' : '' %>>Medium</option>
+    <option value="high" <%= task.priority === 'high' ? 'selected' : '' %>>High</option>
+  </select>
+  <button type="submit" class="btn">Save</button>
+</form>
+
+<%- include('partials/footer') %>

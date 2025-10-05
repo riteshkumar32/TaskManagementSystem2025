@@ -1,0 +1,18 @@
+<%- include('partials/header') %>
+
+<h2><%= task.title %></h2>
+<p><strong>Description:</strong></p>
+<p><%= task.description || '—' %></p>
+<p><strong>Due:</strong> <%= task.dueDate ? new Date(task.dueDate).toLocaleDateString() : '—' %></p>
+<p><strong>Priority:</strong> <%= task.priority %></p>
+<p><strong>Status:</strong> <%= task.status %></p>
+
+<div class="actions">
+  <a href="/tasks/<%= task._id %>/edit" class="btn">Edit</a>
+  <form action="/tasks/<%= task._id %>?_method=DELETE" method="POST" style="display:inline;">
+    <button type="submit" class="btn danger">Delete</button>
+  </form>
+  <a href="/tasks" class="btn">Back</a>
+</div>
+
+<%- include('partials/footer') %>

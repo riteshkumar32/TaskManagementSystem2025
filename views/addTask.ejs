@@ -1,0 +1,20 @@
+<%- include('partials/header') %>
+
+<h2>Add Task</h2>
+<form action="/tasks" method="POST" class="form">
+  <label>Title</label>
+  <input type="text" name="title" required />
+  <label>Description</label>
+  <textarea name="description"></textarea>
+  <label>Due Date</label>
+  <input type="date" name="dueDate" />
+  <label>Priority</label>
+  <select name="priority">
+    <option value="low">Low</option>
+    <option value="medium" selected>Medium</option>
+    <option value="high">High</option>
+  </select>
+  <button type="submit" class="btn">Add</button>
+</form>
+
+<%- include('partials/footer') %>

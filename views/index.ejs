@@ -1,0 +1,42 @@
+<%- include('partials/header') %>
+
+<div class="toolbar">
+  <h2>Your Tasks</h2>
+  <a href="/tasks/new" class="btn">Add Task</a>
+</div>
+
+<% if (tasks && tasks.length === 0) { %>
+  <p>No tasks yet. <a href="/tasks/new">Add one</a></p>
+<% } else { %>
+  <div class="task-grid">
+    <% tasks.forEach(task => { %>
+      <div class="task-card <%= task.priority %>">
+        <h3><a href="/tasks/<%= task._id %>"><%= task.title %></a></h3>
+        <p class="small"><%= task.description ? (task.description.length > 120 ? task.description.slice(0,120)+'...' : task.description) : '' %></p>
+        <p class="meta">Due: <%= task.dueDate ? new Date(task.dueDate).toLocaleDateString() : '—' %></p>
+        <p>Status: <span class="status"><%= task.status %></span></p>
+        <div class="actions">
+          <a href="/tasks/<%= task._id %>/edit" class="btn small">Edit</a>
+          <button class="btn small danger delete-task" data-id="<%= task._id %>">Delete</button>
+          <select class="status-select" data-id="<%= task._id %>">
+            <option value="pending" <%= task.status==='pending' ? 'selected' : '' %>>Pending</option>
+            <option value="in-progress" <%= task.status==='in-progress' ? 'selected' : '' %>>In Progress</option>
+            <option value="completed" <%= task.status==='completed' ? 'selected' : '' %>>Completed</option>
+          </select>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+
+  <div class="pagination">
+    <% if (currentPage > 1) { %>
+      <a href="?page=<%= currentPage-1 %>">Prev</a>
+    <% } %>
+    <span>Page <%= currentPage %> of <%= totalPages %></span>
+    <% if (currentPage < totalPages) { %>
+      <a href="?page=<%= currentPage+1 %>">Next</a>
+    <% } %>
+  </div>
+<% } %>
+
+<%- include('partials/footer') %>
